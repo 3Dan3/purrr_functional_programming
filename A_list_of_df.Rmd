@@ -14,9 +14,7 @@ output:
   keep_md: yes
 ---
 
----
-
-An exploration of the R Package `purrr` and its functions. The package is a complete and consistent functional programming toolkit for R.
+This is an exploration of the R Package `purrr` and its functions. The package is a complete and consistent functional programming toolkit for R.
 
 Here we consider two cases:
 
@@ -24,11 +22,18 @@ Here we consider two cases:
 * a list of lists
 
 
+Data for the first case can be found here: https://d396qusza40orc.cloudfront.net/rprog%2Fdata%2Fspecdata.zip
+
+---
+
+
+
 ```{r, message=FALSE, echo=FALSE}
 
 library(tidyverse)
 library(purrrlyr)
 library(lubridate)
+library(repurrrsive)
 library(listviewer)
 
 # read all files in the directory and store in a list

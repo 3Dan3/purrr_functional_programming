@@ -11,14 +11,16 @@ August 13, 2018
 -   [`pluck()`](#pluck)
 -   [`negate()`](#negate)
 
-------------------------------------------------------------------------
-
-An exploration of the R Package `purrr` and its functions. The package is a complete and consistent functional programming toolkit for R.
+This is an exploration of the R Package `purrr` and its functions. The package is a complete and consistent functional programming toolkit for R.
 
 Here we consider two cases:
 
 -   a list of dataframes
 -   a list of lists
+
+Data for the first case can be found here: <https://d396qusza40orc.cloudfront.net/rprog%2Fdata%2Fspecdata.zip>
+
+------------------------------------------------------------------------
 
 `modify_depth()`
 ----------------
