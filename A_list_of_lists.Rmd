@@ -1,0 +1,203 @@
+---
+title: "purrr functions 2"
+author: "DanielH"
+date: "August 15, 2018"
+output:
+  github_document:
+    toc: true
+    toc_depth: 2
+  output:
+  html_document: default
+  html_notebook:
+    theme: readable
+  pdf_document: default
+  keep_md: yes
+---
+
+---
+
+```{r, message=FALSE, echo=FALSE}
+
+library(tidyverse)
+library(purrrlyr)
+library(magrittr)
+library(lubridate)
+library(repurrrsive)
+library(listviewer)
+
+
+
+# save the list
+got_chars <- got_chars
+
+```
+
+In this part we will consider a list of lists from the package `repurrrsive`. 
+
+The `gotchars_list` is a list of 30 lists composed of 18 elements(vectors) each
+
+## `map()`, `pluck()`
+
+We want to extract an element from a list.
+
+```{r}
+# extract by name
+got_chars %>%
+  map("id") %>%
+  flatten_int()
+
+
+# extract by position
+got_chars %>%
+  map(2) %>%
+  flatten_int()
+
+# using 'pluck' by name
+got_chars %>%
+  modify_depth(1, pluck, "id") %>%
+  flatten_int()
+
+# using 'pluck' by position
+got_chars %>%
+  modify_depth(1, pluck, 2) %>%
+  flatten_int()
+
+# using magrittr::extract()
+got_chars %>%
+  modify_depth(1, extract, "id") %>%
+  flatten() %>%
+  flatten_int()
+```
+
+## explore the list
+
+```{r}
+
+# check if elements of the 30 lists are all length 18
+got_chars %>%
+  every(~length(.x) == 18)
+
+# name the list
+list_names <-
+  got_chars %>%
+  modify_depth(1, pluck, "name") %>%
+  flatten_chr()
+
+got_chars <-
+  got_chars %>%
+  set_names(list_names)
+
+# explore the list
+got_chars %>%
+  sample(2) %>% 
+  str(max.level = 2, list.len = 3)
+
+# extract a named element
+got_chars %>%
+  extract(c("Theon Greyjoy", "Will")) %>%
+  str(list.len = 3)
+
+# extract multiple elements
+got_chars[2:4] %>%
+  map(extract, c("id", "culture")) %>%  # return a list of 3 vector lists
+  map(str, max.level = 1) %>%
+  compact()  # remove elements that are NULL
+  
+```
+
+## has_element()
+
+Here we want to see which(named) element of the list contains an element "Bronson Webb" and which one contains "Maester"
+
+```{r}
+got_chars %>%
+  modify_depth(1, has_element, "Bronson Webb") %>%
+  keep(~.x == TRUE)
+
+
+got_chars %>%
+  modify_depth(1, has_element, "Maester") %>%
+  keep(~.x == TRUE)
+```
+
+It's the 'Will' element.
+
+## head_while()
+
+```{r}
+got_chars %>%
+  modify_depth(1, has_element, "Ironborn") %>%
+  keep(~. == TRUE)
+
+got_chars %>%
+  modify_depth(1, has_element, "Ironborn") %>%
+  head_while(~. == TRUE)
+
+got_chars %>%
+  modify_depth(1, has_element, "Norvoshi") %>%
+  keep(~. == TRUE)
+
+got_chars %>%
+  modify_depth(1, has_element, "Norvoshi") %>%
+  head_while(~. == FALSE)
+
+got_chars %>%
+  modify_depth(1, has_element, "Ironborn") %>%
+  tail_while(~. == FALSE) 
+
+```
+
+## `map_if()`, `map_at()`
+
+```{r}
+# map_if
+got_chars %>%
+  modify_depth(1, map_if, is_integer, sqrt) %>%     #sqrt of integer elements
+  modify_depth(1, extract, "id") %>%     # extract the square roots, 'id'
+  modify_depth(1, flatten_dbl) %>%     # remove one level of hierarchy
+  unname() %>%    # remove list names
+  as_vector() %>%    # convert to vector
+  round(2) 
+
+
+# map_to
+got_chars %>%
+  modify_depth(1, map_at, "gender", str_count) %>%    #count gender characters
+  modify_depth(1, extract, "gender") %>%     # extract the gender elements
+  modify_depth(1, flatten_int) %>%     # remove one level of hierarchy
+  unname() %>%      # remove list names
+  as_vector() %>%     # convert to vector
+  map_chr(~if_else(. == 4, "female", "male"))    # back to character vec
+ 
+```
+
+## from list to dataframe
+
+```{r}
+
+# create tibble
+got_chars_tibble <-
+  got_chars %>% {
+  tibble(name = map_chr(., "name"),
+         culture = map_chr(., "culture"),
+         gender = map_chr(., "gender"),
+         id = map_int(., "id"),
+         born = map_chr(., "born"),
+         alive = map_lgl(., "alive"))
+  }
+
+
+# set NAs in the culture column
+got_chars_tibble <-
+  got_chars_tibble %>%
+  mutate(culture = parse_character(culture, na = c("", "NA" )))
+
+
+```
+
+
+
+
+
+
+
