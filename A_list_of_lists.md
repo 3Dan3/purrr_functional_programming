@@ -5,8 +5,8 @@ August 15, 2018
 
 -   [`map()`, `pluck()`](#map-pluck)
 -   [explore the list](#explore-the-list)
--   [has\_element()](#has_element)
--   [head\_while()](#head_while)
+-   [`has_element()`](#has_element)
+-   [`head_while()`](#head_while)
 -   [`map_if()`, `map_at()`](#map_if-map_at)
 -   [from list to dataframe](#from-list-to-dataframe)
 
@@ -111,10 +111,10 @@ got_chars %>%
     ##   ..$ id         : int 1022
     ##   ..$ name       : chr "Theon Greyjoy"
     ##   .. [list output truncated]
-    ##  $ Will         :List of 18
-    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/1109"
-    ##   ..$ id         : int 1109
-    ##   ..$ name       : chr "Will"
+    ##  $ Areo Hotah   :List of 18
+    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/1166"
+    ##   ..$ id         : int 1166
+    ##   ..$ name       : chr "Areo Hotah"
     ##   .. [list output truncated]
 
 ``` r
@@ -156,8 +156,8 @@ got_chars[2:4] %>%
 
     ## named list()
 
-has\_element()
---------------
+`has_element()`
+---------------
 
 Here we want to see which(named) element of the list contains an element "Bronson Webb" and which one contains "Maester"
 
@@ -181,8 +181,8 @@ got_chars %>%
 
 It's the 'Will' element.
 
-head\_while()
--------------
+`head_while()`
+--------------
 
 ``` r
 got_chars %>%
