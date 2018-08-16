@@ -105,7 +105,7 @@ got_chars[2:4] %>%
   
 ```
 
-## has_element()
+## `has_element()`
 
 Here we want to see which(named) element of the list contains an element "Bronson Webb" and which one contains "Maester"
 
@@ -122,7 +122,7 @@ got_chars %>%
 
 It's the 'Will' element.
 
-## head_while()
+## `head_while()`
 
 ```{r}
 got_chars %>%
