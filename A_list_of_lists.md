@@ -9,6 +9,8 @@ August 15, 2018
 -   [`head_while()`](#head_while)
 -   [`map_if()`, `map_at()`](#map_if-map_at)
 -   [from list to dataframe](#from-list-to-dataframe)
+-   [`map2()`](#map2)
+-   [`pmap()`](#pmap)
 
 ------------------------------------------------------------------------
 
@@ -106,15 +108,15 @@ got_chars %>%
 ```
 
     ## List of 2
-    ##  $ Theon Greyjoy:List of 18
-    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/1022"
-    ##   ..$ id         : int 1022
-    ##   ..$ name       : chr "Theon Greyjoy"
+    ##  $ Davos Seaworth :List of 18
+    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/1319"
+    ##   ..$ id         : int 1319
+    ##   ..$ name       : chr "Davos Seaworth"
     ##   .. [list output truncated]
-    ##  $ Areo Hotah   :List of 18
-    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/1166"
-    ##   ..$ id         : int 1166
-    ##   ..$ name       : chr "Areo Hotah"
+    ##  $ Quentyn Martell:List of 18
+    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/844"
+    ##   ..$ id         : int 844
+    ##   ..$ name       : chr "Quentyn Martell"
     ##   .. [list output truncated]
 
 ``` r
@@ -282,6 +284,8 @@ got_chars %>%
 
 ``` r
 # map_to
+
+# 1
 got_chars %>%
   modify_depth(1, map_at, "gender", str_count) %>%    #count gender characters
   modify_depth(1, extract, "gender") %>%     # extract the gender elements
@@ -296,6 +300,16 @@ got_chars %>%
     ## [15] "female" "female" "male"   "male"   "male"   "female" "female"
     ## [22] "female" "female" "female" "female" "male"   "female" "female"
     ## [29] "female" "male"
+
+``` r
+# 2
+got_chars[1:5] %>% 
+  modify_depth(1, map_at, "id", ~.x + 100) %>%  # +100 where TRUE
+  map("id") %>%
+  flatten_dbl()
+```
+
+    ## [1] 1122 1152 1174 1209 1266
 
 from list to dataframe
 ----------------------
@@ -318,3 +332,66 @@ got_chars_tibble <-
   got_chars_tibble %>%
   mutate(culture = parse_character(culture, na = c("", "NA" )))
 ```
+
+`map2()`
+--------
+
+> If we need to map a function over two vectors or lists in parallel, we can use `map2()` for that.
+
+Here is the usage:
+
+``` r
+# create list 1
+nms <-
+  got_chars %>%
+  map("name")
+# create list 2
+brn <-
+  got_chars %>%
+  map("born")
+
+# map paste(...) in parallel using map2
+nms %>%
+  map2(brn, ~paste(.x, "was born", .y)) %>%
+  tail(3)
+```
+
+    ## $`Quentyn Martell`
+    ## [1] "Quentyn Martell was born In 281 AC, at Sunspear, Dorne"
+    ## 
+    ## $`Samwell Tarly`
+    ## [1] "Samwell Tarly was born In 283 AC, at Horn Hill"
+    ## 
+    ## $`Sansa Stark`
+    ## [1] "Sansa Stark was born In 286 AC, at Winterfell"
+
+`pmap()`
+--------
+
+> to map a function over two or more vectors or lists in parallel, we use `pmap()`
+
+``` r
+# create df/tibble
+df <- 
+  got_chars %>% 
+  {tibble(name = map_chr(., "name"),
+          aliases = map(., "aliases"),
+          allegiances = map(., "allegiances"))}
+
+# define function
+my_fun <- 
+  function(name, aliases, allegiances) {
+    paste(name, "has", length(aliases), "aliases and",
+          length(allegiances), "allegiances")
+}
+
+# map the function with pmap
+df %>% 
+  pmap_chr(my_fun) %>% 
+  tail(4)
+```
+
+    ## [1] "Merrett Frey has 1 aliases and 1 allegiances"   
+    ## [2] "Quentyn Martell has 4 aliases and 1 allegiances"
+    ## [3] "Samwell Tarly has 7 aliases and 1 allegiances"  
+    ## [4] "Sansa Stark has 3 aliases and 2 allegiances"

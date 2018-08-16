@@ -161,6 +161,8 @@ got_chars %>%
 
 
 # map_to
+
+# 1
 got_chars %>%
   modify_depth(1, map_at, "gender", str_count) %>%    #count gender characters
   modify_depth(1, extract, "gender") %>%     # extract the gender elements
@@ -168,6 +170,12 @@ got_chars %>%
   unname() %>%      # remove list names
   as_vector() %>%     # convert to vector
   map_chr(~if_else(. == 4, "female", "male"))    # back to character vec
+
+# 2
+got_chars[1:5] %>% 
+  modify_depth(1, map_at, "id", ~.x + 100) %>%  # +100 where TRUE
+  map("id") %>%
+  flatten_dbl()
  
 ```
 
@@ -195,8 +203,55 @@ got_chars_tibble <-
 
 ```
 
+## `map2()`
 
+>If we need to map a function over two vectors or lists in parallel, we can use `map2()` for that. 
 
+Here is the usage:
+
+```{r}
+
+# create list 1
+nms <-
+  got_chars %>%
+  map("name")
+# create list 2
+brn <-
+  got_chars %>%
+  map("born")
+
+# map paste(...) in parallel using map2
+nms %>%
+  map2(brn, ~paste(.x, "was born", .y)) %>%
+  tail(3)
+         
+```
+
+## `pmap()`
+
+>to map a function over two or more vectors or lists in parallel, we use `pmap()`
+
+```{r}
+
+# create df/tibble
+df <- 
+  got_chars %>% 
+  {tibble(name = map_chr(., "name"),
+          aliases = map(., "aliases"),
+          allegiances = map(., "allegiances"))}
+
+# define function
+my_fun <- 
+  function(name, aliases, allegiances) {
+    paste(name, "has", length(aliases), "aliases and",
+          length(allegiances), "allegiances")
+}
+
+# map the function with pmap
+df %>% 
+  pmap_chr(my_fun) %>% 
+  tail(4)
+```
 
 
 
