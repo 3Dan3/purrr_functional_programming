@@ -200,7 +200,6 @@ got_chars_tibble <-
   got_chars_tibble %>%
   mutate(culture = parse_character(culture, na = c("", "NA" )))
 
-
 ```
 
 ## `map2()`

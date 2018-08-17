@@ -108,15 +108,15 @@ got_chars %>%
 ```
 
     ## List of 2
-    ##  $ Arya Stark   :List of 18
-    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/148"
-    ##   ..$ id         : int 148
-    ##   ..$ name       : chr "Arya Stark"
+    ##  $ Brandon Stark:List of 18
+    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/208"
+    ##   ..$ id         : int 208
+    ##   ..$ name       : chr "Brandon Stark"
     ##   .. [list output truncated]
-    ##  $ Aeron Greyjoy:List of 18
-    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/60"
-    ##   ..$ id         : int 60
-    ##   ..$ name       : chr "Aeron Greyjoy"
+    ##  $ Will         :List of 18
+    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/1109"
+    ##   ..$ id         : int 1109
+    ##   ..$ name       : chr "Will"
     ##   .. [list output truncated]
 
 ``` r
