@@ -108,15 +108,15 @@ got_chars %>%
 ```
 
     ## List of 2
-    ##  $ Victarion Greyjoy:List of 18
-    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/1074"
-    ##   ..$ id         : int 1074
-    ##   ..$ name       : chr "Victarion Greyjoy"
+    ##  $ Jon Snow   :List of 18
+    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/583"
+    ##   ..$ id         : int 583
+    ##   ..$ name       : chr "Jon Snow"
     ##   .. [list output truncated]
-    ##  $ Merrett Frey     :List of 18
-    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/751"
-    ##   ..$ id         : int 751
-    ##   ..$ name       : chr "Merrett Frey"
+    ##  $ Sansa Stark:List of 18
+    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/957"
+    ##   ..$ id         : int 957
+    ##   ..$ name       : chr "Sansa Stark"
     ##   .. [list output truncated]
 
 ``` r
@@ -181,7 +181,7 @@ got_chars %>%
     ## $Cressen
     ## [1] TRUE
 
-The 'Will' element contains "Bronson Webb", the `Cressen` element contains "Maester"
+The 'Will' element contains "Bronson Webb", the 'Cressen' element contains "Maester"
 
 `head_while()`
 --------------
