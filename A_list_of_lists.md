@@ -108,15 +108,15 @@ got_chars %>%
 ```
 
     ## List of 2
-    ##  $ Brandon Stark:List of 18
-    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/208"
-    ##   ..$ id         : int 208
-    ##   ..$ name       : chr "Brandon Stark"
+    ##  $ Victarion Greyjoy:List of 18
+    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/1074"
+    ##   ..$ id         : int 1074
+    ##   ..$ name       : chr "Victarion Greyjoy"
     ##   .. [list output truncated]
-    ##  $ Will         :List of 18
-    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/1109"
-    ##   ..$ id         : int 1109
-    ##   ..$ name       : chr "Will"
+    ##  $ Merrett Frey     :List of 18
+    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/751"
+    ##   ..$ id         : int 751
+    ##   ..$ name       : chr "Merrett Frey"
     ##   .. [list output truncated]
 
 ``` r
@@ -181,7 +181,7 @@ got_chars %>%
     ## $Cressen
     ## [1] TRUE
 
-It's the 'Will' element.
+The 'Will' element contains "Bronson Webb", the `Cressen` element contains "Maester"
 
 `head_while()`
 --------------

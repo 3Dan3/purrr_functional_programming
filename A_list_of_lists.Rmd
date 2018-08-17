@@ -120,7 +120,7 @@ got_chars %>%
   keep(~.x == TRUE)
 ```
 
-It's the 'Will' element.
+The 'Will' element contains "Bronson Webb", the `Cressen` element contains "Maester"
 
 ## `head_while()`
 
