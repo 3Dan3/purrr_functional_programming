@@ -1,7 +1,4 @@
 ---
-title: "purrr functions"
-author: "DanielH"
-date: "August 13, 2018"
 output:
   github_document:
     toc: true
@@ -12,6 +9,9 @@ output:
     theme: readable
   pdf_document: default
   keep_md: yes
+author: "DanielH"
+date: "August 13, 2018"
+title: "purrr functions"
 ---
 
 This is an exploration of the R Package `purrr` and its functions. The package is a complete and consistent functional programming toolkit for R.

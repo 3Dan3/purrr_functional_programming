@@ -108,15 +108,15 @@ got_chars %>%
 ```
 
     ## List of 2
-    ##  $ Davos Seaworth :List of 18
-    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/1319"
-    ##   ..$ id         : int 1319
-    ##   ..$ name       : chr "Davos Seaworth"
+    ##  $ Arya Stark   :List of 18
+    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/148"
+    ##   ..$ id         : int 148
+    ##   ..$ name       : chr "Arya Stark"
     ##   .. [list output truncated]
-    ##  $ Quentyn Martell:List of 18
-    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/844"
-    ##   ..$ id         : int 844
-    ##   ..$ name       : chr "Quentyn Martell"
+    ##  $ Aeron Greyjoy:List of 18
+    ##   ..$ url        : chr "https://www.anapioficeandfire.com/api/characters/60"
+    ##   ..$ id         : int 60
+    ##   ..$ name       : chr "Aeron Greyjoy"
     ##   .. [list output truncated]
 
 ``` r
