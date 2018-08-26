@@ -112,7 +112,7 @@ nps_list_nested %>%
 
 ```
 
-## transform variable
+## transform the response variable
 
 As we can see the response variable is not normal and not even nearly normal, therefore we try a log transformation. 
 

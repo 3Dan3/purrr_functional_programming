@@ -6,7 +6,7 @@ August 23, 2018
 -   [load data and set names](#load-data-and-set-names)
 -   [fit linear model](#fit-linear-model)
 -   [check assumptions](#check-assumptions)
--   [transform variable](#transform-variable)
+-   [transform the response variable](#transform-the-response-variable)
 
 ------------------------------------------------------------------------
 
@@ -97,8 +97,8 @@ nps_list_nested %>%
 
 ![](NPS_case_files/figure-markdown_github/unnamed-chunk-4-4.png)![](NPS_case_files/figure-markdown_github/unnamed-chunk-4-5.png)![](NPS_case_files/figure-markdown_github/unnamed-chunk-4-6.png)
 
-transform variable
-------------------
+transform the response variable
+-------------------------------
 
 As we can see the response variable is not normal and not even nearly normal, therefore we try a log transformation.
 
