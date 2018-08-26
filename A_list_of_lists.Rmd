@@ -20,6 +20,7 @@ output:
 
 library(tidyverse)
 library(purrrlyr)
+library(modelr)
 library(magrittr)
 library(lubridate)
 library(repurrrsive)
@@ -28,7 +29,7 @@ library(listviewer)
 
 
 # save the list
-got_chars <- got_chars
+got_chars <- got_chars  
 
 ```
 
@@ -251,6 +252,56 @@ df %>%
   pmap_chr(my_fun) %>% 
   tail(4)
 ```
+
+
+### more
+
+```{r}
+
+listone <-
+got_chars %>%
+  set_names(map_chr(.,'name')) %>%                # set names
+  map(., extract, c("name", "allegiances")) %>%
+  .[21] %>% str(max.level = 2)
+
+
+listonino <-
+  got_chars %>%
+  set_names(map_chr(.,'name')) %>%                # set names
+  map(., extract, c("name", "allegiances")) %>%
+  .[[21]] 
+  
+```
+
+
+
+
+
+
+here: http://r4ds.had.co.nz/many-models.html#
+
+here: https://www.datacamp.com/community/tutorials/linear-regression-R
+
+
+
+
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
