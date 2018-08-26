@@ -7,6 +7,8 @@ August 23, 2018
 -   [fit linear model](#fit-linear-model)
 -   [check assumptions](#check-assumptions)
 -   [transform the response variable](#transform-the-response-variable)
+-   [extract R squared](#extract-r-squared)
+-   [plot visitors for each region](#plot-visitors-for-each-region)
 
 ------------------------------------------------------------------------
 
@@ -126,8 +128,11 @@ nps_list_nested %>%
 
 ![](NPS_case_files/figure-markdown_github/unnamed-chunk-5-1.png)![](NPS_case_files/figure-markdown_github/unnamed-chunk-5-2.png)![](NPS_case_files/figure-markdown_github/unnamed-chunk-5-3.png)
 
+extract R squared
+-----------------
+
 ``` r
-# extract R squared for each element
+# extract R squared 
 nps_list_nested %>%
   map_dbl(~summary(.)$adj.r.squared) %>%
   round(2)
@@ -135,6 +140,9 @@ nps_list_nested %>%
 
     ##    total recreation data        tent camping data backcountry camping data 
     ##                     0.03                     0.05                     0.00
+
+plot visitors for each region
+-----------------------------
 
 First, we create a dataframe of all possible combinations of year and region
 

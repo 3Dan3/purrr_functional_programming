@@ -137,13 +137,19 @@ nps_list_nested %>%
                  labs(x = "residuals", 
                       y = "fitted values") +
                  coord_flip()))
+```
 
+## extract R squared 
 
-# extract R squared for each element
+```{r}
+# extract R squared 
 nps_list_nested %>%
   map_dbl(~summary(.)$adj.r.squared) %>%
   round(2)
 ```
+
+
+## plot visitors for each region
 
 First, we create a dataframe of all possible combinations of year and region
 
