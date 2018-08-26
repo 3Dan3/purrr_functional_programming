@@ -81,7 +81,7 @@ nps_list_nested <-
 Here we wanto to check whetehr our data satisifies the conditions for using a linear model. First we look at the residuals, then we look at the response variable distribution
 
 
-```{r, fig.height=3}
+```{r, fig.height=3, message=FALSE, warning=FALSE}
 # ---------------------- we now want to plot residuals(y) vs fitted.values(x)
 
 # define plot function
@@ -118,7 +118,7 @@ As we can see the response variable is not normal and not even nearly normal, th
 
 We then take a look at the R squared values
 
-```{r, fig.height=3}
+```{r, fig.height=3, message=FALSE, warning=FALSE}
 
 # log transformation of the variable 'value'
 nps_list_nested <-

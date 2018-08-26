@@ -95,17 +95,7 @@ nps_list_nested %>%
                                 fill = "cadetblue")))
 ```
 
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
-![](NPS_case_files/figure-markdown_github/unnamed-chunk-4-4.png)
-
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
-![](NPS_case_files/figure-markdown_github/unnamed-chunk-4-5.png)
-
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
-![](NPS_case_files/figure-markdown_github/unnamed-chunk-4-6.png)
+![](NPS_case_files/figure-markdown_github/unnamed-chunk-4-4.png)![](NPS_case_files/figure-markdown_github/unnamed-chunk-4-5.png)![](NPS_case_files/figure-markdown_github/unnamed-chunk-4-6.png)
 
 transform variable
 ------------------
