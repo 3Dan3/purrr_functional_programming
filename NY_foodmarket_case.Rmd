@@ -1,0 +1,163 @@
+---
+title: "Untitled"
+author: "DanielH"
+date: "August 17, 2018"
+output:
+  github_document:
+    toc: true
+    toc_depth: 2
+  output:
+  html_document: default
+  html_notebook:
+    theme: readable
+  pdf_document: default
+  keep_md: yes
+---
+
+---
+
+```{r}
+library(tidyverse)
+library(purrrlyr)
+library(magrittr)
+library(jsonlite)
+library(lubridate)
+library(repurrrsive)
+library(listviewer)
+
+# read data
+nyfood_dat <- 
+  fromJSON("retail_food_markets.json")
+```
+
+## The dataset
+
+```{r}
+nyfood_dat %>%
+  str(max.level = 1)
+```
+
+As we can see our list, `nyfood_dat` has 2 components, two lists:
+
+* `meta`
+
+* `data`
+
+We start exploring the `data` component
+
+```{r}
+
+# extract data component
+nyfood_sub_data <-
+  nyfood_dat %>%
+  pluck("data")
+
+# check whether each element has length 23
+nyfood_sub_data %>%
+  every(~length(.x) == 23)
+
+# some exploration
+nyfood_sub_data[[5]] %>% 
+  str(max.level = 1)
+```
+
+We can see the data but we need to know what they refer to. We now explore the `meta` component, looking for 23 names stored somewhere
+
+```{r}
+# extract meta component
+nyfood_sub_meta <-
+  nyfood_dat %>%
+  pluck("meta")
+
+nyfood_sub_meta %>%
+  str(max.level = 2)
+
+```
+
+We see that there's an element `columns`, a dataframe containing 23 observations. we extract it and then extract the column `name`
+
+```{r}
+# extract and store names in a vector nms 
+nms <-
+  nyfood_sub_meta %>%
+  pluck("view") %>%
+  pluck("columns") %>%
+  pull(name)
+```
+
+Back to our data component of the original list
+
+```{r}
+
+
+nyfood_sub_data <-
+  nyfood_sub_data %>%
+  modify_depth(1, set_names, nms)
+
+
+nyfood_data <- nyfood_sub_data
+
+
+nyfood_data_df <-
+  nyfood_data %>% 
+  {tibble(county = map_chr(., "County"),
+          operation_type = map_chr(., "Operation Type"),
+          entity_name = map_chr(., "Entity Name"),
+          dba_name = map_chr(., "DBA Name"),
+          street_number = map_chr(., "Street Number", 
+                                  .null = NA_character_),
+          street_name = map_chr(., "Street Name"),
+          city = map_chr(., "City"),
+          state = map_chr(., "State"),
+          zip_code = map_chr(., "Zip Code"))}
+
+nyfood_data_df <-
+  nyfood_data_df %>%
+  dmap_if(is_character, str_to_lower)
+
+nyfood_data_df <-
+  nyfood_data_df %>%
+  select(state, county, city, zip_code, everything()) %>%
+  dmap_at(c(1:5), factor)
+
+
+# trim cols where required
+nyfood_data_df <-
+  nyfood_data_df %>%
+  dmap_at(c(3, 6, 7), str_trim, "right") 
+
+
+# define data manipulation function
+total_by <-
+  function(var) {
+    var <- enquo(var)
+    nyfood_data_df %>%
+      group_by(!!var) %>%
+      summarize(total = n()) %>%
+      arrange(desc(total))
+  }
+    
+
+# call function
+total_by(city) %>% head(4)
+total_by(county) %>% head(4)
+total_by(zip_code) %>% head(4)
+
+
+# define plot function
+total_by(city) %>%
+  head(30) %>% 
+  ggplot(aes(fct_reorder(city, total), total)) +
+  geom_point(color = "red") +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Total stores by city",
+       x = "", y = "")
+
+```
+
+Now we try to look at list-columns, 
+
+
+
+
