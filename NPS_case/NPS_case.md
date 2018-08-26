@@ -123,26 +123,6 @@ nps_list_nested <-
   modify_depth(1, park_model)
 
 
-# check transormed variable
-nps_list_nested %>%
-  walk(~ print(ggplot(data = ., aes(x = value)) +
-                 geom_histogram(color = "white",
-                                fill = "cadetblue")))
-```
-
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
-![](NPS_case_files/figure-markdown_github/unnamed-chunk-5-1.png)
-
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
-![](NPS_case_files/figure-markdown_github/unnamed-chunk-5-2.png)
-
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
-![](NPS_case_files/figure-markdown_github/unnamed-chunk-5-3.png)
-
-``` r
 # plot residuals vs fitted values    
 nps_list_nested %>%
   walk(~ print(ggplot(data = ., 
@@ -154,7 +134,7 @@ nps_list_nested %>%
                  coord_flip()))
 ```
 
-![](NPS_case_files/figure-markdown_github/unnamed-chunk-5-4.png)![](NPS_case_files/figure-markdown_github/unnamed-chunk-5-5.png)![](NPS_case_files/figure-markdown_github/unnamed-chunk-5-6.png)
+![](NPS_case_files/figure-markdown_github/unnamed-chunk-5-1.png)![](NPS_case_files/figure-markdown_github/unnamed-chunk-5-2.png)![](NPS_case_files/figure-markdown_github/unnamed-chunk-5-3.png)
 
 ``` r
 # extract R squared for each element
@@ -175,9 +155,9 @@ pred_data <-
 )
 ```
 
-For each visit type, we create a dataframe with predicted \# for each year/region
+For each visit type, we create a dataframe with predicted data for each year/region
 
-`se.fit = TRUE`
+we set `se.fit = TRUE` so that stadard errors are returned
 
 ``` r
 pred_list <- 

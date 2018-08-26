@@ -81,7 +81,7 @@ nps_list_nested <-
 Here we wanto to check whetehr our data satisifies the conditions for using a linear model. First we look at the residuals, then we look at the response variable distribution
 
 
-```{r, fig.height=3}
+```{r, fig.height=3, message=FALSE, warning=FALSE}
 # ---------------------- we now want to plot residuals(y) vs fitted.values(x)
 
 # define plot function
@@ -118,7 +118,7 @@ As we can see the response variable is not normal and not even nearly normal, th
 
 We then take a look at the R squared values
 
-```{r, fig.height=3}
+```{r, fig.height=3, message=FALSE}
 
 # log transformation of the variable 'value'
 nps_list_nested <-
@@ -126,6 +126,13 @@ nps_list_nested <-
   map(~mutate_at(.x, "value", log)) %>%
   set_names(list_nms) %>%   # name elements
   modify_depth(1, park_model)
+
+
+# check transormed variable
+nps_list_nested %>%
+  walk(~ print(ggplot(data = ., aes(x = value)) +
+                 geom_histogram(color = "white",
+                                fill = "cadetblue")))
 
 
 # plot residuals vs fitted values    
@@ -154,9 +161,9 @@ pred_data <-
 )
 ```
 
-For each visit type, we create a dataframe with predicted data for each year/region
+For each visit type, we create a dataframe with predicted # for each year/region
 
-we set `se.fit = TRUE` so that stadard errors are returned
+`se.fit = TRUE`
 
 ```{r}
 pred_list <- 
@@ -215,7 +222,7 @@ plot_args <-
 Now that we have our plotting function `plot_predicted` written and our arguments are
 set up in the list `plot_args`, we can get all our plots with one line:
 
-```{r}
+```{r, message=FALSE}
 nps_plots <- 
   pmap(plot_args, plot_predicted)
 
