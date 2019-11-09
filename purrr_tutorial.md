@@ -186,8 +186,8 @@ We then define a copy of the original dataset without the \_orig suffix.
 Having an original copy of the data in the current environment means
 that it is easy to check that our manipulations do what we expected.
 
-We will make direct data cleaning modifications to the gapminder data
-frame, but will never edit the gapminder\_orig data frame.
+We will make direct data cleaning modifications to the `gapminder` data
+frame, but will never edit the `gapminder_orig` data frame.
 
 ``` r
 gapminder_orig <- 
