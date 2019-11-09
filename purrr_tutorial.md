@@ -514,7 +514,7 @@ Create the following data frame that has the continent, each term in the
 model for the continent, its linear model coefficient estimate, and
 standard error.
 
-![](example_tbl.PNG)
+![](purrr_tutorial_files/example_tbl.PNG)
 
 ``` r
 gapminder %>%
